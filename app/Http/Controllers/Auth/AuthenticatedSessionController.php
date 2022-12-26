@@ -18,10 +18,20 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
+        $user = $request->user();
 
-        $request->session()->regenerate();
-
-        return response()->noContent();
+        if ($user->email_verified_at) {
+            $token = $user->createToken('default')->plainTextToken;
+            return response()->json([
+                'status' => 'success',
+                'token' => $token,
+                'data' => $user
+            ]);
+        }
+        return response()->json([
+            'status' => 'error',
+            'message' => 'User needs to be validated',
+        ], 409);
     }
 
     /**
@@ -32,12 +42,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        $request->user()->currentAccessToken()->delete();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+        ], 201);
     }
 }
