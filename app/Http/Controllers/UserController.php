@@ -11,35 +11,37 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User;  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
+        $this->authorize('view', User::class);
+
         return response()->json([
             'status' => 'success',
-            'data' => $user
+            'data' => auth()->user(),
         ], 200);
     }
 
     /**
      * Display the list of reservations of a user.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function showUserReservations(User $user)
+    public function showUserReservations()
     {
+        $this->authorize('view', User::class);
+
         return response()->json([
             'status' => 'success',
-            'data' => $user->reservations()
+            'data' => auth()->user()->reservations()
                 ->where(function ($query) {
                     $query
                         ->where('start_date', '>=', Carbon::now()->format('Y-m-d'))
                         ->orWhere('end_date', '>=', Carbon::now()->format('Y-m-d'));
                 })
                 ->orderBy('start_date', 'asc')
-                ->get()
+                ->get(),
         ], 200);
     }
 

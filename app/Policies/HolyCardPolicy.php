@@ -25,10 +25,9 @@ class HolyCardPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\holyCard  $holyCard
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, holyCard $holyCard)
+    public function view(User $user)
     {
         return true;
     }

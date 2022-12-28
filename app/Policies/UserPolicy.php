@@ -24,12 +24,11 @@ class UserPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
-        return $user->id === $model->id;
+        return true;
     }
 
     /**
@@ -41,7 +40,13 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return ($user->id === $model->id) or ($user->isAdmin());
+        if ($user->id === $model->id) {
+            return true;
+        }
+        if ($user->isAdmin()) {
+            return true;
+        }
+        return false;
     }
 
     /**

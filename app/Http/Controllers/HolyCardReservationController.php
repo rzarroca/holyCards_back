@@ -15,6 +15,8 @@ class HolyCardReservationController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', HolyCardReservation::class);
+
         return response()->json([
             'status' => 'success',
             'data' => HolyCardReservation::where('start_date', '>=', Carbon::now()->format('Y-m-d'))

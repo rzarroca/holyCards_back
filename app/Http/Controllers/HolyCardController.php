@@ -15,6 +15,8 @@ class HolyCardController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', User::class);
+
         return response()->json([
             'status' => 'success',
             'data' => holyCard::all(['id', 'name', 'is_active'])
@@ -50,6 +52,8 @@ class HolyCardController extends Controller
      */
     public function show(holyCard $holyCard)
     {
+        $this->authorize('view', User::class);
+
         return response()->json([
             'status' => 'success',
             'data' => $holyCard
@@ -64,6 +68,8 @@ class HolyCardController extends Controller
      */
     public function showHolyCardReservations(holyCard $holyCard)
     {
+        $this->authorize('view', User::class);
+
         return response()->json([
             'status' => 'success',
             'data' => $holyCard->reservations()
