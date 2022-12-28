@@ -41,7 +41,7 @@ class HolyCardPolicy
      */
     public function create(User $user)
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class HolyCardPolicy
      */
     public function update(User $user, holyCard $holyCard)
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class HolyCardPolicy
      */
     public function delete(User $user, holyCard $holyCard)
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class HolyCardPolicy
      */
     public function restore(User $user, holyCard $holyCard)
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,6 @@ class HolyCardPolicy
      */
     public function forceDelete(User $user, holyCard $holyCard)
     {
-        return $user->role === 'admin';
+        return false;
     }
 }

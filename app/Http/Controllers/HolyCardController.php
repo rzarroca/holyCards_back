@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\holyCard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class HolyCardController extends Controller
 {
@@ -52,6 +53,24 @@ class HolyCardController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $holyCard
+        ], 200);
+    }
+
+    /**
+     * Display the list of reservations of a holyCard.
+     *
+     * @param  \App\Models\holyCard  $holyCard
+     * @return \Illuminate\Http\Response
+     */
+    public function showHolyCardReservations(holyCard $holyCard)
+    {
+        return response()->json([
+            'status' => 'success',
+            'data' => $holyCard->reservations()
+                ->where('start_date', '>=', Carbon::now()->format('Y-m-d'))
+                ->orWhere('end_date', '>=', Carbon::now()->format('Y-m-d'))
+                ->orderBy('start_date', 'asc')
+                ->get()
         ], 200);
     }
 
