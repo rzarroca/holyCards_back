@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -47,6 +49,26 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the reservations made for the user.
+     */
+    public function reservations()
+    {
+        return $this->hasMany(HolyCardReservation::class);
+    }
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function isAdmin(): Attribute
+    {
+        return new Attribute(
+            get: fn () => 'yes',
+        );
+    }
 
     public function canAccessFilament(): bool
     {

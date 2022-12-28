@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class holyCard extends Model
+class HolyCardReservation extends Model
 {
     use HasFactory;
 
@@ -15,11 +15,10 @@ class holyCard extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'description',
-        'image',
-        'password',
-        'is_active',
+        'holy_card_id',
+        'user_id',
+        'start_date',
+        'end_date',
     ];
 
     /**
@@ -33,10 +32,18 @@ class holyCard extends Model
     ];
 
     /**
-     * Get the reservations this card has.
+     * Get the user that owns the reservation.
      */
-    public function reservations()
+    public function user()
     {
-        return $this->hasMany(HolyCardReservation::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the holyCard that is reserved.
+     */
+    public function holyCard()
+    {
+        return $this->belongsTo(holyCard::class);
     }
 }

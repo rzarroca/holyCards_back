@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            HolyCardSeeder::class
+            HolyCardSeeder::class,
+            HolyCardReservationSeeder::class
         ]);
     }
 }
