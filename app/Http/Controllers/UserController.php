@@ -33,8 +33,11 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $user->reservations()
-                ->where('start_date', '>=', Carbon::now()->format('Y-m-d'))
-                ->orWhere('end_date', '>=', Carbon::now()->format('Y-m-d'))
+                ->where(function ($query) {
+                    $query
+                        ->where('start_date', '>=', Carbon::now()->format('Y-m-d'))
+                        ->orWhere('end_date', '>=', Carbon::now()->format('Y-m-d'));
+                })
                 ->orderBy('start_date', 'asc')
                 ->get()
         ], 200);
