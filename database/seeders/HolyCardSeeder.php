@@ -24,5 +24,14 @@ class HolyCardSeeder extends Seeder
             'image' => $path,
             'description' => 'Protector of the forgotten bugs'
         ]);
+
+        $defaultPath2 = resource_path() . '/images/demo.jpg';
+        $path2 = Storage::put('public', new File($defaultPath2));
+
+        holyCard::create([
+            'name' => 'Squidlord',
+            'image' => $path2,
+            'description' => 'The final evolution of squidward. Many say the shrieks of him shouting spongebob imply imending doom'
+        ]);
     }
 }

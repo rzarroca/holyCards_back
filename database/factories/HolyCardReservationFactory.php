@@ -18,7 +18,7 @@ class HolyCardReservationFactory extends Factory
     public function definition()
     {
         return [
-            'holy_card_id' => 1,
+            'holy_card_id' => rand(1, 2),
             'user_id' => rand(2, 4),
             'start_date' => Carbon::now(),
             'end_date' => Carbon::now()->addDays(rand(1, 5))
