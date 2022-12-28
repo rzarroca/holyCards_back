@@ -14,10 +14,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/{holyCard}/reservations', [HolyCardController::class, 'showHolyCardReservations']);
   });
 
-  Route::prefix('users')->group(function () {
+  Route::prefix('account')->group(function () {
 
-    Route::get('/{user}', [UserController::class, 'show']);
-    Route::get('/{user}/reservations', [UserController::class, 'showUserReservations']);
+    Route::get('/', [UserController::class, 'show']);
+    Route::get('/reservations', [UserController::class, 'showUserReservations']);
   });
 
   Route::prefix('reservations')->group(function () {
