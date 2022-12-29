@@ -47,7 +47,7 @@ class HolyCardReservationPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role === 'user';
     }
 
     /**

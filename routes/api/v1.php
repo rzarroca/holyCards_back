@@ -23,5 +23,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::prefix('reservations')->group(function () {
 
     Route::get('/', [HolyCardReservationController::class, 'index']);
+    Route::post('/', [HolyCardReservationController::class, 'store']);
   });
 });
