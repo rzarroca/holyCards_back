@@ -66,7 +66,7 @@ class User extends Authenticatable implements FilamentUser
     protected function isAdmin(): Attribute
     {
         return new Attribute(
-            get: fn () => 'yes',
+            get: fn () => $this->role === 'admin',
         );
     }
 
