@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class holyCard extends Model
+class holyCard extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -18,8 +20,16 @@ class holyCard extends Model
         'name',
         'description',
         'image',
-        'password',
-        'is_active',
+        'is_active'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     /**
