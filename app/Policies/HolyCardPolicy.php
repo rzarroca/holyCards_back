@@ -40,7 +40,7 @@ class HolyCardPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAdmin;
     }
 
     /**
@@ -52,7 +52,7 @@ class HolyCardPolicy
      */
     public function update(User $user, holyCard $holyCard)
     {
-        return $user->isAdmin();
+        return $user->isAdmin;
     }
 
     /**
@@ -64,7 +64,7 @@ class HolyCardPolicy
      */
     public function delete(User $user, holyCard $holyCard)
     {
-        return $user->isAdmin();
+        return $user->isAdmin;
     }
 
     /**
@@ -76,7 +76,7 @@ class HolyCardPolicy
      */
     public function restore(User $user, holyCard $holyCard)
     {
-        return $user->isAdmin();
+        return $user->isAdmin;
     }
 
     /**

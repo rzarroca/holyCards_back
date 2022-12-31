@@ -33,10 +33,7 @@ class HolyCardReservationPolicy
         if ($user->id === $holycardReservation->user_id) {
             return true;
         }
-        if ($user->isAdmin()) {
-            return true;
-        }
-        return false;
+        return $user->isAdmin;
     }
 
     /**
@@ -62,10 +59,7 @@ class HolyCardReservationPolicy
         if ($user->id === $holycardReservation->user_id) {
             return true;
         }
-        if ($user->isAdmin()) {
-            return true;
-        }
-        return false;
+        return $user->isAdmin;
     }
 
     /**
@@ -80,9 +74,6 @@ class HolyCardReservationPolicy
         if ($user->id === $holycardReservation->user_id) {
             return true;
         }
-        if ($user->isAdmin()) {
-            return true;
-        }
         return false;
     }
 
@@ -95,7 +86,7 @@ class HolyCardReservationPolicy
      */
     public function restore(User $user, HolyCardReservation $holycardReservation)
     {
-        return $user->isAdmin();
+        return false;
     }
 
     /**
