@@ -64,7 +64,7 @@ class HolyCardResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ReservationsRelationManager::class
         ];
     }
 

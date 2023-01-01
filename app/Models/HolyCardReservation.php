@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class HolyCardReservation extends Model
@@ -30,6 +31,18 @@ class HolyCardReservation extends Model
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function userName(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->user->name,
+        );
+    }
 
     /**
      * Get the user that owns the reservation.
