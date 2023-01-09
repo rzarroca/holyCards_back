@@ -10,14 +10,14 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Toggle;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\HolyCardResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\HolyCardResource\RelationManagers;
 
 class HolyCardResource extends Resource
@@ -32,7 +32,7 @@ class HolyCardResource extends Resource
             ->schema([
                 Card::make()->schema([
                     TextInput::make('name'),
-                    SpatieMediaLibraryFileUpload::make('avatar'),
+                    FileUpload::make('image')->image(),
                     TextInput::make('description'),
                     Toggle::make('is_active')
 
@@ -47,7 +47,7 @@ class HolyCardResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->limit(25)->sortable(),
                 TextColumn::make('description')->limit(50),
-                SpatieMediaLibraryImageColumn::make('image'),
+                ImageColumn::make('image'),
                 ToggleColumn::make('is_active')
             ])
             ->filters([

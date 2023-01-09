@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class holyCard extends Model implements HasMedia
+class holyCard extends Model
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,15 @@ class holyCard extends Model implements HasMedia
         'description',
         'image',
         'is_active'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_url'
     ];
 
     /**
@@ -40,7 +51,14 @@ class holyCard extends Model implements HasMedia
     protected $hidden = [
         'created_at',
         'updated_at',
+        'image'
     ];
+
+    protected function imageUrl(): Attribute {
+        return Attribute::make(
+            get: fn () => Storage::url($this->image),
+        );
+    }
 
     /**
      * Get the reservations this card has.
@@ -49,4 +67,12 @@ class holyCard extends Model implements HasMedia
     {
         return $this->hasMany(HolyCardReservation::class);
     }
+
+    public function registerMediaConversions(Media $media = null): void
+{
+    $this
+        ->addMediaConversion('preview')
+        ->fit(Manipulations::FIT_CROP, 300, 300)
+        ->nonQueued();
+}
 }
